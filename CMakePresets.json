@@ -23,7 +23,7 @@
       }
     },
     {
-      "name": "linux-base",
+      "name": "linux-gcc-base",
       "inherits": "ninja-base",
       "hidden": true,
       "cacheVariables": {
@@ -45,9 +45,18 @@
       }
     },
     {
+      "name": "linux-clang-base",
+      "inherits": "linux-gcc-base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
       "name": "linux-x64-debug",
       "displayName": "x64 Debug",
-      "inherits": "linux-base",
+      "inherits": "linux-clang-base",
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -59,7 +68,7 @@
     {
       "name": "linux-x64-release",
       "displayName": "x64 Release",
-      "inherits": "linux-base",
+      "inherits": "linux-clang-base",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -137,7 +146,17 @@
     {
       "name": "windows-x64-asan",
       "displayName": "x64 ASan",
-      "configurePreset": "windows-x64-asan",
+      "configurePreset": "windows-x64-asan"
+    },
+    {
+      "name": "windows-x86-debug",
+      "displayName": "x86 Debug",
+      "configurePreset": "windows-x86-debug"
+    },
+    {
+      "name": "windows-x86-release",
+      "displayName": "x86 Release",
+      "configurePreset": "windows-x86-release"
     },
     {
       "name": "linux-x64-debug",
