@@ -48,5 +48,5 @@ jobs:
       run: cmake --build --preset ${{ env.CMAKE_PRESET }}
 
     - name: Test
-      run: ctest --preset ${{ env.CMAKE_PRESET }}
+      run: ctest --preset ${{ env.CMAKE_PRESET }} -E use-after-free
   
