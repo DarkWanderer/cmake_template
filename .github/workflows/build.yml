@@ -1,0 +1,36 @@
+name: CMake  
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            preset: windows-x64-debug
+          - os: windows-latest
+            preset: windows-x64-release
+          - os: ubuntu-latest
+            preset: linux-x64-debug
+          - os: ubuntu-latest
+            preset: linux-x64-release
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure CMake
+      run: cmake --preset ${{ matrix.preset }}
+
+    - name: Build
+      run: cmake --build --preset ${{ matrix.preset }}
+
+    - name: Test
+      run: ctest --preset ${{ matrix.preset }}
+  
