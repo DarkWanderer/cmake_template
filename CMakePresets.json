@@ -5,7 +5,14 @@
       "name": "ninja-base",
       "hidden": true,
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "binaryDir": "${sourceDir}/out/build/ninja/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}"
+    },
+    {
+      "name": "make-base",
+      "hidden": true,
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/out/build/make/${presetName}",
       "installDir": "${sourceDir}/out/install/${presetName}"
     },
     {
@@ -24,7 +31,7 @@
     },
     {
       "name": "linux-gcc-base",
-      "inherits": "ninja-base",
+      "inherits": "make-base",
       "hidden": true,
       "cacheVariables": {
         "CMAKE_C_COMPILER": "gcc",
