@@ -13,13 +13,9 @@ jobs:
       matrix:
         os: [windows, ubuntu]
         conf: [release, debug]
-        arch: [x64]
-        include:
-          - os: windows
-            conf: debug
-            arch: x86
-          - os: windows
-            conf: release
+        arch: [x64, x86]
+        exclude:
+          - os: ubuntu
             arch: x86
     
     runs-on: ${{ matrix.os }}-latest
