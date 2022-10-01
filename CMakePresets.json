@@ -107,7 +107,7 @@
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
           "hostOS": [
-            "Darwin"
+            "macOS"
           ]
         },
         "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
@@ -140,7 +140,7 @@
       "displayName": "x64 ASan",
       "inherits": "macos-x64-debug",
       "cacheVariables": {
-        "ASAN_ENABLED": true
+        "ASAN_ENABLED": true,
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
