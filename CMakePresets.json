@@ -78,10 +78,10 @@
     {
       "name": "linux-x64-asan",
       "displayName": "x64 ASan",
-      "inherits": "linux-x64-release",
+      "inherits": "linux-x64-debug",
       "cacheVariables": {
         "ASAN_ENABLED": true,
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+        "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
