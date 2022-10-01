@@ -23,17 +23,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - uses: mad9000/actions-find-and-replace-string@2
-      id: fixos
-      with:
-          source: ${{ matrix.os }}
-          find: 'ubuntu'
-          replace: 'linux'
-
     - name: Set preset name
       shell: bash
       run: |
-        echo "CMAKE_PRESET=${{ steps.fixos.outputs.value }}-${{ matrix.arch }}-${{ matrix.conf }}" >> $GITHUB_ENV
+        echo "CMAKE_PRESET=${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.conf }}" | sed s/ubuntu/linux/ >> $GITHUB_ENV
 
     - name: Set up Windows compiler
       if: ${{ matrix.os }} == 'windows'
