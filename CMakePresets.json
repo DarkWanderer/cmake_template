@@ -77,7 +77,7 @@
     {
       "name": "linux-x64-release",
       "displayName": "x64 Release",
-      "inherits": "linux-clang-base",
+      "inherits": "linux-x64-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
