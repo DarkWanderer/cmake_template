@@ -13,7 +13,14 @@ jobs:
       matrix:
         os: [windows, ubuntu]
         conf: [release, debug]
-        arch: [x64, x86]
+        arch: [x64]
+        include:
+          - os: windows
+            conf: debug
+            arch: x86
+          - os: windows
+            conf: release
+            arch: x86
     
     runs-on: ${{ matrix.os }}-latest
 
@@ -28,6 +35,7 @@ jobs:
           replace: 'linux'
 
     - name: Set preset name
+      shell: bash
       run: |
         echo "CMAKE_PRESET=${{ steps.fixos.outputs.value }}-${{ matrix.arch }}-${{ matrix.conf }}" >> $GITHUB_ENV
 
