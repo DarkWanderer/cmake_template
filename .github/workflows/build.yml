@@ -14,15 +14,23 @@ jobs:
         os: [windows, ubuntu]
         conf: [release, debug]
         arch: [x64, x86]
-
-    env:
-      CMAKE_PRESET: ${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.conf }}
     
     runs-on: ${{ matrix.os }}-latest
 
     steps:
     - uses: actions/checkout@v3
     
+    - uses: mad9000/actions-find-and-replace-string@2
+      id: fixos
+      with:
+          source: ${{ matrix.os }}
+          find: 'ubuntu'
+          replace: 'linux'
+
+    - name: Set preset name
+      run: |
+        echo "CMAKE_PRESET=${{ steps.fixos.outputs.value }}-${{ matrix.arch }}-${{ matrix.conf }}" >> $GITHUB_ENV
+
     - name: Set up Windows compiler
       if: ${{ matrix.os }} == 'windows'
       uses: ilammy/msvc-dev-cmd@v1
