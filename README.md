@@ -9,7 +9,7 @@ This repository provides an example of how to set up CMakePresets.json to enable
 # Quick Start
 
 1. Setup WSL subsystem: https://learn.microsoft.com/en-us/windows/wsl/install
-1. Insall clang, ninja-build, gdb packages on WSL
+1. Insall clang, gdb packages on WSL
 1. Clone the repository
 1. Open the repository as "directory" in Visual Studio (as opposed to "open solution")
 1. Open Visual Studio settings, find CMake section, set following option:
