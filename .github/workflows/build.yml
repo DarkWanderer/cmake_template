@@ -11,27 +11,30 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: windows-latest
-            preset: windows-x64-debug
-          - os: windows-latest
-            preset: windows-x64-release
-          - os: ubuntu-latest
-            preset: linux-x64-debug
-          - os: ubuntu-latest
-            preset: linux-x64-release
+        os: [windows, ubuntu]
+        conf: [release, debug]
+        arch: [x64, x86]
 
-    runs-on: ${{ matrix.os }}
+    env:
+      CMAKE_PRESET: ${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.conf }}
+    
+    runs-on: ${{ matrix.os }}-latest
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Set up Windows compiler
+      if: ${{ matrix.os }} == 'windows'
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: ${{ matrix.arch }}
 
     - name: Configure CMake
-      run: cmake --preset ${{ matrix.preset }}
+      run: cmake --preset ${{ env.CMAKE_PRESET }}
 
     - name: Build
-      run: cmake --build --preset ${{ matrix.preset }}
+      run: cmake --build --preset ${{ env.CMAKE_PRESET }}
 
     - name: Test
-      run: ctest --preset ${{ matrix.preset }}
+      run: ctest --preset ${{ env.CMAKE_PRESET }}
   
