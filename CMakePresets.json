@@ -102,12 +102,12 @@
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
-        "rhs": "MacOS"
+        "rhs": "Darwin"
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
           "hostOS": [
-            "MacOS"
+            "Darwin"
           ]
         },
         "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
