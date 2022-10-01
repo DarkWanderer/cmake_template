@@ -2,8 +2,6 @@
 
 project("cmake_visual_studio_example")
 
-add_executable(cmake_visual_studio_example "main.cpp")
-
 option(ASAN_ENABLED "Build this target with AddressSanitizer" OFF)
 
 if(ASAN_ENABLED)
@@ -35,12 +33,18 @@ if(ASAN_ENABLED)
 		COMMAND ${CMAKE_COMMAND} -E copy ${ASAN_LIBRARY_SOURCE} ${CMAKE_BINARY_DIR}
 	)
 
-    add_custom_target(CopyAsanBinaries DEPENDS ${ASAN_LIBRARY_TARGET})
-	add_dependencies(cmake_visual_studio_example CopyAsanBinaries)
-	target_compile_options(cmake_visual_studio_example PUBLIC /fsanitize=address /Zi)
+    add_custom_target(CopyAsanBinaries ALL DEPENDS ${ASAN_LIBRARY_TARGET})
+	add_compile_options(/fsanitize=address /Zi)
   else()
-    target_compile_options(cmake_visual_studio_example PUBLIC -fsanitize=address -fno-omit-frame-pointer)
-    target_link_options(cmake_visual_studio_example PUBLIC -fsanitize=address)
+    add_compile_options(-fsanitize=address -fno-omit-frame-pointer)
+    add_link_options(-fsanitize=address)
   endif()
   message(STATUS "Address Sanitizer Enabled")
 endif()
+
+add_executable(hello-world "helloworld.cpp")
+add_executable(use-after-free "use-after-free.cpp")
+
+include(CTest)
+add_test(NAME namespace.class.use-after-free COMMAND $<TARGET_FILE:use-after-free>)
+add_test(NAME namespace.class.hello-world COMMAND $<TARGET_FILE:hello-world>)
