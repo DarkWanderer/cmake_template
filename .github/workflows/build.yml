@@ -1,4 +1,4 @@
-name: CMake  
+name: Build  
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Build
     strategy:
       fail-fast: false
       matrix:
@@ -33,7 +34,7 @@ jobs:
         echo "CMAKE_PRESET=${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.conf }}" | sed s/ubuntu/linux/ >> $GITHUB_ENV
 
     - name: Set up Windows compiler
-      if: ${{ matrix.os }} == 'windows'
+      if: ${{ matrix.os == 'windows' }}
       uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: ${{ matrix.arch }}
