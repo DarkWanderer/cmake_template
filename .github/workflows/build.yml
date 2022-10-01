@@ -12,10 +12,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows, ubuntu]
-        conf: [release, debug]
+        conf: [release, debug, asan]
         arch: [x64, x86]
         exclude:
           - os: ubuntu
+            arch: x86
+          - conf: asan
             arch: x86
     
     runs-on: ${{ matrix.os }}-latest
