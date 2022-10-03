@@ -5,13 +5,12 @@ project("cmake_visual_studio_example")
 option(ASAN_ENABLED "Build this target with AddressSanitizer" OFF)
 
 if(ASAN_ENABLED)
-  if(MSVC)    
+  if(MSVC)
 	if(CMAKE_SIZEOF_VOID_P EQUAL 8) # 64-bit build
 		set(ASAN_ARCHITECTURE "x86_64")
 	else()
 		set(ASAN_ARCHITECTURE "i386")
 	endif()
-
 
 	if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 		set(ASAN_LIBRARY_TARGET "clang_rt.asan_dbg_dynamic-${ASAN_ARCHITECTURE}.dll")

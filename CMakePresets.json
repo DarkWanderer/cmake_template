@@ -254,9 +254,13 @@
   "testPresets": [
     {
       "name": "test-base",
-      "description": "Enable output on failure",
+      "description": "Basic shared test settings",
       "configurePreset": "ninja-base",
       "hidden": true,
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": false
+      },
       "output": {
         "outputOnFailure": true
       }
