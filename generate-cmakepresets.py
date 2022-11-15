@@ -60,7 +60,7 @@ if __name__ == "__main__":
     configure_presets.append(base_configure_preset)
 
 
-    os_names = ["Linux", "Windows", "macOS"] if args.macos else ["Windows", "Linux"]
+    os_names = ["Linux", "Windows", "macOS"] if args.macos else ["Linux", "Windows"]
 
     for os in os_names:
         os_base_configure_preset = get_os_base_configure_preset(os, base_configure_preset["name"])
