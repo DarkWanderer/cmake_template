@@ -39,6 +39,14 @@ jobs:
       with:
         arch: ${{ matrix.arch }}
 
+    - name: Install Ninja (Ubuntu)
+      if: ${{ matrix.os == 'ubuntu' }}
+      run: sudo apt-get install ninja-build
+
+    - name: Install Ninja (MacOS)
+      if: ${{ matrix.os == 'macos' }}
+      run: brew install ninja
+
     - name: Configure CMake
       run: cmake --preset ${{ env.CMAKE_PRESET }}
 
