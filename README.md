@@ -1,15 +1,11 @@
 # cmake_crossplatform_example
 
-An example of cross-platform setup of CMakePresets C++ project for Visual Studio
-
-# Overview
-
-This repository provides an example of how to set up CMakePresets.json to enable remote build/debugging in Visual Studio 2019 or above
+This repository provides an example of how to set up CMakePresets.json to enable remote build/debugging in Visual Studio 2019 or above. A generator allowing to create customized versions is also available
 
 # Quick Start
 
 1. Setup WSL subsystem: https://learn.microsoft.com/en-us/windows/wsl/install
-1. Insall clang, gdb packages on WSL
+1. Install gcc, gdb, ninja-build packages on WSL
 1. Clone the repository
 1. Open the repository as "directory" in Visual Studio (as opposed to "open solution")
 1. Open Visual Studio settings, find CMake section, set following option:
