@@ -2,8 +2,10 @@ function(enable_asan)
   if(MSVC)
     if(CMAKE_SIZEOF_VOID_P EQUAL 8) # 64-bit build
         set(ASAN_ARCHITECTURE "x86_64")
+        set(ASAN_LIBRARY_HINT_DIR $ENV{VCToolsInstallDir}/bin/Hostx64/x64)
     else()
         set(ASAN_ARCHITECTURE "i386")
+        set(ASAN_LIBRARY_HINT_DIR $ENV{VCToolsInstallDir}/bin/Hostx86/x86)
     endif()
 
     if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
@@ -16,14 +18,14 @@ function(enable_asan)
     find_file (ASAN_LIBRARY_SOURCE
         NAMES ${ASAN_LIBRARY_NAME}
         REQUIRED
-        HINTS $ENV{LIBPATH}
+        HINTS ${ASAN_LIBRARY_HINT_DIR} $ENV{LIBPATH}
         DOC "Path to Clang AddressSanitizer runtime"
     )
 
     find_file (LLVM_SYMBOLIZER_SOURCE
         NAMES ${LLVM_SYMBOLIZER_NAME}
         REQUIRED
-        HINTS $ENV{LIBPATH}
+        HINTS ${ASAN_LIBRARY_HINT_DIR} $ENV{LIBPATH}
         DOC "Path to Clang AddressSanitizer runtime"
     )
 
