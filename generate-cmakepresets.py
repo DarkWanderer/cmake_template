@@ -24,10 +24,7 @@ def get_os_base_configure_preset(os: str, inherits: str):
         }
     }
     if os == 'Windows':
-        result["cacheVariables"] = {
-            "CMAKE_C_COMPILER": "cl.exe",
-            "CMAKE_CXX_COMPILER": "cl.exe"
-        }
+        pass # add Windows-specific cache variables here
     else:
         result["cacheVariables"] = {
             "CMAKE_C_COMPILER": "gcc",
