@@ -2,12 +2,11 @@ import json
 import argparse
 
 
-def get_base_configure_preset(generator: str):
+def get_base_configure_preset():
     return {
-        "name": generator.lower() + "-base",
+        "name": "common-base",
         "hidden": True,
-        "generator": "Unix Makefiles" if generator == 'Make' else generator,
-        "binaryDir": "${sourceDir}/out/build/" + generator.lower() + "/${presetName}",
+        "binaryDir": "${sourceDir}/out/build/${presetName}",
         "installDir": "${sourceDir}/out/install/${presetName}"
     }
 
@@ -17,6 +16,7 @@ def get_os_base_configure_preset(os: str, inherits: str):
         "name": os.lower() + "-base",
         "hidden": True,
         "inherits": inherits,
+        "generator": "Ninja" if os == "Windows" else "Unix Makefiles",
         "condition": {
             "type": "equals",
             "lhs": "${hostSystemName}",
@@ -57,29 +57,22 @@ if __name__ == "__main__":
         description='Generates CMakePresets.json file with custom parameters'
     )
     parser.add_argument('--file', default='CMakePresets.json')
-    parser.add_argument(
-        '--generator',
-        default='Ninja',
-        choices=[
-            'Ninja',
-            'Make'])
     parser.add_argument('--macos', action='store_true')
     args = parser.parse_args()
-    print(args)
 
     configure_presets = []
     build_presets = []
     test_presets = []
 
-    base_configure_preset = get_base_configure_preset(args.generator)
+    base_configure_preset = get_base_configure_preset()
     base_build_preset = {
-        'name': 'build-base',
+        'name': 'common-base',
         'hidden': True,
         'jobs': 1,
         'cleanFirst': False
     }
     base_test_preset = {
-        "name": "test-base",
+        "name": "common-base",
         "description": "Basic shared test settings",
         "hidden": True,
         "execution": {
@@ -94,44 +87,31 @@ if __name__ == "__main__":
     build_presets.append(base_build_preset)
     test_presets.append(base_test_preset)
 
-    os_names = [
-        "Linux",
-        "Windows",
-        "macOS"] if args.macos else [
-        "Linux",
-        "Windows"]
+    os_names = ["Linux","Windows","macOS"] if args.macos else ["Linux","Windows"]
 
     for os in os_names:
-        os_base_configure_preset = get_os_base_configure_preset(
-            os, base_configure_preset["name"])
+        os_base_configure_preset = get_os_base_configure_preset(os, base_configure_preset["name"])
         configure_presets.append(os_base_configure_preset)
         for conf in ["Debug", "Release", "ASan"]:
-            configure_presets.append(
-                get_os_preset(
-                    os,
-                    os_base_configure_preset["name"],
-                    "x64",
-                    conf))
+            configure_presets.append(get_os_preset(os,os_base_configure_preset["name"],"x64",conf))
             if os == "Windows":
-                configure_presets.append(
-                    get_os_preset(
-                        os,
-                        os_base_configure_preset["name"],
-                        "x86",
-                        conf))
+                configure_presets.append(get_os_preset(os,os_base_configure_preset["name"],"x86",conf))
+        build_presets.append({"name": os_base_configure_preset["name"], "inherits": base_build_preset["name"], "hidden": True})
+        test_presets.append({"name": os_base_configure_preset["name"], "inherits": base_test_preset["name"], "hidden": True})
+
 
     for conf_preset in configure_presets:
         if conf_preset.get('hidden', False) == True:
             continue
         build_presets.append({
             "name": conf_preset["name"],
-            "inherits": base_build_preset["name"],
+            "inherits": conf_preset["inherits"],
             "displayName": conf_preset["displayName"],
             "configurePreset": conf_preset["name"],
         })
         test_presets.append({
             "name": conf_preset["name"],
-            "inherits": base_test_preset["name"],
+            "inherits": conf_preset["inherits"],
             "displayName": conf_preset["displayName"],
             "configurePreset": conf_preset["name"],
         })
