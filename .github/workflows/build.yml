@@ -20,8 +20,6 @@ jobs:
             arch: x86
           - os: macos
             arch: x86
-          - conf: asan
-            arch: x86
     
     runs-on: ${{ matrix.os }}-latest
 
