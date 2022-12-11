@@ -2,12 +2,11 @@
 
 project("cmake_visual_studio_example")
 
-option(ASAN_ENABLED "Build this target with AddressSanitizer" OFF)
+option(SANITIZE "Enable selected sanitizer in build" OFF)
 
-include(ASan.cmake)
-
-if(ASAN_ENABLED)
-  enable_asan()
+include(sanitizer.cmake)
+if(SANITIZE)
+  enable_sanitizer(${SANITIZE})
 endif()
 
 add_executable(hello-world "helloworld.cpp")

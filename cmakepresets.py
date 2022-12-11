@@ -45,7 +45,7 @@ def get_os_preset(os: str, inherits: str, arch: str, conf: str):
         "architecture": {"value": arch, "strategy": "external"},
         "cacheVariables": {
             "CMAKE_BUILD_TYPE": "Debug" if conf == "ASan" else conf,
-            "ASAN_ENABLED": conf == "ASan"
+            "SANITIZE": "address" if conf == "ASan" else False
         }
     }
     return result
