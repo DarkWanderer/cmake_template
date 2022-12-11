@@ -29,10 +29,10 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: Set preset name
-      id: get_preset
+      id: preset
       shell: bash
       run: |
-        echo "preset_name=${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.conf }}" | sed s/ubuntu/linux/ >> $GITHUB_OUTPUT
+        echo "name=${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.conf }}" | sed s/ubuntu/linux/ >> $GITHUB_OUTPUT
 
     - name: Set up Windows compiler
       uses: ilammy/msvc-dev-cmd@v1
@@ -40,10 +40,10 @@ jobs:
         arch: ${{ matrix.arch }}
 
     - name: Configure CMake
-      run: cmake --preset ${{ get_preset.outputs.preset_name }}
+      run: cmake --preset ${{ steps.preset.outputs.name }}
 
     - name: Build
-      run: cmake --build --preset ${{ get_preset.outputs.preset_name }}
+      run: cmake --build --preset ${{ steps.preset.outputs.name }}
 
     - name: Test
-      run: ctest --preset ${{ get_preset.outputs.preset_name }} -E use-after-free
+      run: ctest --preset ${{ steps.preset.outputs.name }} -E use-after-free
