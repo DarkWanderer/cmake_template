@@ -41,7 +41,7 @@ def get_os_preset(os: str, inherits: str, arch: str, conf: str, sanitizer: any):
     result = {
         "name": os.lower() + "-" + arch + "-" + conf.lower(),
         "inherits": inherits,
-        "displayName": arch + " " + conf,
+        "displayName": arch + " " + ("sanitize="+sanitizer if sanitizer else conf),
         "architecture": {"value": arch, "strategy": "external"},
         "cacheVariables": {
             "CMAKE_BUILD_TYPE": "Debug" if sanitizer else conf,

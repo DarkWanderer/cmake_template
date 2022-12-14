@@ -61,7 +61,7 @@
     {
       "name": "linux-x64-asan",
       "inherits": "linux-base",
-      "displayName": "x64 ASan",
+      "displayName": "x64 sanitize=address",
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -74,7 +74,7 @@
     {
       "name": "linux-x64-tsan",
       "inherits": "linux-base",
-      "displayName": "x64 TSan",
+      "displayName": "x64 sanitize=thread",
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -87,7 +87,7 @@
     {
       "name": "linux-x64-lsan",
       "inherits": "linux-base",
-      "displayName": "x64 LSan",
+      "displayName": "x64 sanitize=leak",
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -100,7 +100,7 @@
     {
       "name": "linux-x64-ubsan",
       "inherits": "linux-base",
-      "displayName": "x64 UBSan",
+      "displayName": "x64 sanitize=undefined",
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -176,7 +176,7 @@
     {
       "name": "windows-x64-asan",
       "inherits": "windows-base",
-      "displayName": "x64 ASan",
+      "displayName": "x64 sanitize=address",
       "architecture": {
         "value": "x64",
         "strategy": "external"
@@ -189,7 +189,7 @@
     {
       "name": "windows-x86-asan",
       "inherits": "windows-base",
-      "displayName": "x86 ASan",
+      "displayName": "x86 sanitize=address",
       "architecture": {
         "value": "x86",
         "strategy": "external"
@@ -232,25 +232,25 @@
     {
       "name": "linux-x64-asan",
       "inherits": "linux-base",
-      "displayName": "x64 ASan",
+      "displayName": "x64 sanitize=address",
       "configurePreset": "linux-x64-asan"
     },
     {
       "name": "linux-x64-tsan",
       "inherits": "linux-base",
-      "displayName": "x64 TSan",
+      "displayName": "x64 sanitize=thread",
       "configurePreset": "linux-x64-tsan"
     },
     {
       "name": "linux-x64-lsan",
       "inherits": "linux-base",
-      "displayName": "x64 LSan",
+      "displayName": "x64 sanitize=leak",
       "configurePreset": "linux-x64-lsan"
     },
     {
       "name": "linux-x64-ubsan",
       "inherits": "linux-base",
-      "displayName": "x64 UBSan",
+      "displayName": "x64 sanitize=undefined",
       "configurePreset": "linux-x64-ubsan"
     },
     {
@@ -280,13 +280,13 @@
     {
       "name": "windows-x64-asan",
       "inherits": "windows-base",
-      "displayName": "x64 ASan",
+      "displayName": "x64 sanitize=address",
       "configurePreset": "windows-x64-asan"
     },
     {
       "name": "windows-x86-asan",
       "inherits": "windows-base",
-      "displayName": "x86 ASan",
+      "displayName": "x86 sanitize=address",
       "configurePreset": "windows-x86-asan"
     }
   ],
@@ -328,25 +328,25 @@
     {
       "name": "linux-x64-asan",
       "inherits": "linux-base",
-      "displayName": "x64 ASan",
+      "displayName": "x64 sanitize=address",
       "configurePreset": "linux-x64-asan"
     },
     {
       "name": "linux-x64-tsan",
       "inherits": "linux-base",
-      "displayName": "x64 TSan",
+      "displayName": "x64 sanitize=thread",
       "configurePreset": "linux-x64-tsan"
     },
     {
       "name": "linux-x64-lsan",
       "inherits": "linux-base",
-      "displayName": "x64 LSan",
+      "displayName": "x64 sanitize=leak",
       "configurePreset": "linux-x64-lsan"
     },
     {
       "name": "linux-x64-ubsan",
       "inherits": "linux-base",
-      "displayName": "x64 UBSan",
+      "displayName": "x64 sanitize=undefined",
       "configurePreset": "linux-x64-ubsan"
     },
     {
@@ -376,13 +376,13 @@
     {
       "name": "windows-x64-asan",
       "inherits": "windows-base",
-      "displayName": "x64 ASan",
+      "displayName": "x64 sanitize=address",
       "configurePreset": "windows-x64-asan"
     },
     {
       "name": "windows-x86-asan",
       "inherits": "windows-base",
-      "displayName": "x86 ASan",
+      "displayName": "x86 sanitize=address",
       "configurePreset": "windows-x86-asan"
     }
   ]
