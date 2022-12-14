@@ -1,5 +1,8 @@
-function(enable_asan)
-  if(MSVC)
+function(enable_sanitizer SANITIZER)
+  if(NOT MSVC)
+    add_compile_options(-fsanitize=${SANITIZER} -fno-omit-frame-pointer)
+    add_link_options(-fsanitize=${SANITIZER})
+  elseif("${SANITIZER}" STREQUAL "address")
     if(CMAKE_SIZEOF_VOID_P EQUAL 8) # 64-bit build
         set(ASAN_ARCHITECTURE "x86_64")
         set(ASAN_LIBRARY_HINT_DIR $ENV{VCToolsInstallDir}/bin/Hostx64/x64)
@@ -19,14 +22,14 @@ function(enable_asan)
         NAMES ${ASAN_LIBRARY_NAME}
         REQUIRED
         HINTS ${ASAN_LIBRARY_HINT_DIR} $ENV{LIBPATH}
-        DOC "Path to Clang AddressSanitizer runtime"
+        DOC "Clang AddressSanitizer runtime"
     )
 
     find_file (LLVM_SYMBOLIZER_SOURCE
         NAMES ${LLVM_SYMBOLIZER_NAME}
         REQUIRED
         HINTS ${ASAN_LIBRARY_HINT_DIR} $ENV{LIBPATH}
-        DOC "Path to Clang AddressSanitizer runtime"
+        DOC "LLVM symbolizer executable"
     )
 
     add_custom_command(
@@ -44,10 +47,9 @@ function(enable_asan)
     )
 
     add_custom_target(CopyAsanBinaries ALL DEPENDS ${ASAN_LIBRARY_NAME} ${LLVM_SYMBOLIZER_NAME})
-    add_compile_options(/fsanitize=address /Zi /Oy-)
+    add_compile_options(/fsanitize=${SANITIZER} /Zi /Oy-)
   else()
-    add_compile_options(-fsanitize=address -fno-omit-frame-pointer)
-    add_link_options(-fsanitize=address)
+    message(FATAL_ERROR "MSVC does not support sanitizer ${SANITIZER}")
   endif()
-  message(STATUS "Address Sanitizer Enabled")
+  message(STATUS "Enabled sanitize=${SANITIZER}")
 endfunction()
