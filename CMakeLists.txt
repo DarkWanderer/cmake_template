@@ -10,8 +10,8 @@ if(SANITIZE)
 endif()
 
 add_executable(hello-world "helloworld.cpp")
-add_executable(use-after-free "use-after-free.cpp")
+add_executable(sanitizers "sanitizers.cpp")
 
 include(CTest)
-add_test(NAME namespace.class.use-after-free COMMAND $<TARGET_FILE:use-after-free>)
+add_test(NAME namespace.class.sanitizers COMMAND $<TARGET_FILE:sanitizers>)
 add_test(NAME namespace.class.hello-world COMMAND $<TARGET_FILE:hello-world>)

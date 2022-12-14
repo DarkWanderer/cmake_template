@@ -37,15 +37,15 @@ def get_os_base_configure_preset(os: str, inherits: str):
     return result
 
 
-def get_os_preset(os: str, inherits: str, arch: str, conf: str):
+def get_os_preset(os: str, inherits: str, arch: str, conf: str, sanitizer: any):
     result = {
         "name": os.lower() + "-" + arch + "-" + conf.lower(),
         "inherits": inherits,
         "displayName": arch + " " + conf,
         "architecture": {"value": arch, "strategy": "external"},
         "cacheVariables": {
-            "CMAKE_BUILD_TYPE": "Debug" if conf == "ASan" else conf,
-            "SANITIZE": "address" if conf == "ASan" else False
+            "CMAKE_BUILD_TYPE": "Debug" if sanitizer else conf,
+            "SANITIZE": sanitizer
         }
     }
     return result
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         description='Generates CMakePresets.json file with custom parameters'
     )
     parser.add_argument('--file', default='CMakePresets.json')
-    parser.add_argument('--macos', action='store_true')
+    parser.add_argument('--no-macos', action='store_false')
     args = parser.parse_args()
 
     configure_presets = []
@@ -87,15 +87,18 @@ if __name__ == "__main__":
     build_presets.append(base_build_preset)
     test_presets.append(base_test_preset)
 
-    os_names = ["Linux","Windows","macOS"] if args.macos else ["Linux","Windows"]
+    os_names = ["Linux","Windows"] if args.no_macos else ["Linux","Windows","macOS"]
+    configs = {"Debug": False, "Release": False, "ASan": "address", "TSan": "thread", "LSan": "leak", "UBSan": "undefined"}
 
     for os in os_names:
         os_base_configure_preset = get_os_base_configure_preset(os, base_configure_preset["name"])
         configure_presets.append(os_base_configure_preset)
-        for conf in ["Debug", "Release", "ASan"]:
-            configure_presets.append(get_os_preset(os,os_base_configure_preset["name"],"x64",conf))
+        for conf,sanitizer in configs.items():
+            if os == "Windows" and sanitizer and sanitizer != "address":
+                continue
+            configure_presets.append(get_os_preset(os,os_base_configure_preset["name"],"x64",conf, sanitizer))
             if os == "Windows":
-                configure_presets.append(get_os_preset(os,os_base_configure_preset["name"],"x86",conf))
+                configure_presets.append(get_os_preset(os,os_base_configure_preset["name"],"x86",conf,sanitizer))
         build_presets.append({"name": os_base_configure_preset["name"], "inherits": base_build_preset["name"], "hidden": True})
         test_presets.append({"name": os_base_configure_preset["name"], "inherits": base_test_preset["name"], "hidden": True})
 

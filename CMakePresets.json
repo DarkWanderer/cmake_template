@@ -72,6 +72,45 @@
       }
     },
     {
+      "name": "linux-x64-tsan",
+      "inherits": "linux-base",
+      "displayName": "x64 TSan",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "SANITIZE": "thread"
+      }
+    },
+    {
+      "name": "linux-x64-lsan",
+      "inherits": "linux-base",
+      "displayName": "x64 LSan",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "SANITIZE": "leak"
+      }
+    },
+    {
+      "name": "linux-x64-ubsan",
+      "inherits": "linux-base",
+      "displayName": "x64 UBSan",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "SANITIZE": "undefined"
+      }
+    },
+    {
       "name": "windows-base",
       "hidden": true,
       "inherits": "common-base",
@@ -159,70 +198,6 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "SANITIZE": "address"
       }
-    },
-    {
-      "name": "macos-base",
-      "hidden": true,
-      "inherits": "common-base",
-      "generator": "Unix Makefiles",
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Darwin"
-      },
-      "cacheVariables": {
-        "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_CXX_COMPILER": "g++"
-      },
-      "vendor": {
-        "microsoft.com/VisualStudioSettings/CMake/1.0": {
-          "hostOS": [
-            "macOS"
-          ]
-        },
-        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
-          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
-        }
-      }
-    },
-    {
-      "name": "macos-x64-debug",
-      "inherits": "macos-base",
-      "displayName": "x64 Debug",
-      "architecture": {
-        "value": "x64",
-        "strategy": "external"
-      },
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "SANITIZE": false
-      }
-    },
-    {
-      "name": "macos-x64-release",
-      "inherits": "macos-base",
-      "displayName": "x64 Release",
-      "architecture": {
-        "value": "x64",
-        "strategy": "external"
-      },
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "SANITIZE": false
-      }
-    },
-    {
-      "name": "macos-x64-asan",
-      "inherits": "macos-base",
-      "displayName": "x64 ASan",
-      "architecture": {
-        "value": "x64",
-        "strategy": "external"
-      },
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "SANITIZE": "address"
-      }
     }
   ],
   "buildPresets": [
@@ -243,11 +218,6 @@
       "hidden": true
     },
     {
-      "name": "macos-base",
-      "inherits": "common-base",
-      "hidden": true
-    },
-    {
       "name": "linux-x64-debug",
       "inherits": "linux-base",
       "displayName": "x64 Debug",
@@ -264,6 +234,24 @@
       "inherits": "linux-base",
       "displayName": "x64 ASan",
       "configurePreset": "linux-x64-asan"
+    },
+    {
+      "name": "linux-x64-tsan",
+      "inherits": "linux-base",
+      "displayName": "x64 TSan",
+      "configurePreset": "linux-x64-tsan"
+    },
+    {
+      "name": "linux-x64-lsan",
+      "inherits": "linux-base",
+      "displayName": "x64 LSan",
+      "configurePreset": "linux-x64-lsan"
+    },
+    {
+      "name": "linux-x64-ubsan",
+      "inherits": "linux-base",
+      "displayName": "x64 UBSan",
+      "configurePreset": "linux-x64-ubsan"
     },
     {
       "name": "windows-x64-debug",
@@ -300,24 +288,6 @@
       "inherits": "windows-base",
       "displayName": "x86 ASan",
       "configurePreset": "windows-x86-asan"
-    },
-    {
-      "name": "macos-x64-debug",
-      "inherits": "macos-base",
-      "displayName": "x64 Debug",
-      "configurePreset": "macos-x64-debug"
-    },
-    {
-      "name": "macos-x64-release",
-      "inherits": "macos-base",
-      "displayName": "x64 Release",
-      "configurePreset": "macos-x64-release"
-    },
-    {
-      "name": "macos-x64-asan",
-      "inherits": "macos-base",
-      "displayName": "x64 ASan",
-      "configurePreset": "macos-x64-asan"
     }
   ],
   "testPresets": [
@@ -344,11 +314,6 @@
       "hidden": true
     },
     {
-      "name": "macos-base",
-      "inherits": "common-base",
-      "hidden": true
-    },
-    {
       "name": "linux-x64-debug",
       "inherits": "linux-base",
       "displayName": "x64 Debug",
@@ -365,6 +330,24 @@
       "inherits": "linux-base",
       "displayName": "x64 ASan",
       "configurePreset": "linux-x64-asan"
+    },
+    {
+      "name": "linux-x64-tsan",
+      "inherits": "linux-base",
+      "displayName": "x64 TSan",
+      "configurePreset": "linux-x64-tsan"
+    },
+    {
+      "name": "linux-x64-lsan",
+      "inherits": "linux-base",
+      "displayName": "x64 LSan",
+      "configurePreset": "linux-x64-lsan"
+    },
+    {
+      "name": "linux-x64-ubsan",
+      "inherits": "linux-base",
+      "displayName": "x64 UBSan",
+      "configurePreset": "linux-x64-ubsan"
     },
     {
       "name": "windows-x64-debug",
@@ -401,24 +384,6 @@
       "inherits": "windows-base",
       "displayName": "x86 ASan",
       "configurePreset": "windows-x86-asan"
-    },
-    {
-      "name": "macos-x64-debug",
-      "inherits": "macos-base",
-      "displayName": "x64 Debug",
-      "configurePreset": "macos-x64-debug"
-    },
-    {
-      "name": "macos-x64-release",
-      "inherits": "macos-base",
-      "displayName": "x64 Release",
-      "configurePreset": "macos-x64-release"
-    },
-    {
-      "name": "macos-x64-asan",
-      "inherits": "macos-base",
-      "displayName": "x64 ASan",
-      "configurePreset": "macos-x64-asan"
     }
   ]
 }
