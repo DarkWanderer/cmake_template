@@ -57,7 +57,7 @@ if __name__ == "__main__":
         description='Generates CMakePresets.json file with custom parameters'
     )
     parser.add_argument('--file', default='CMakePresets.json')
-    parser.add_argument('--no-macos', action='store_false')
+    parser.add_argument('--no-macos', action='store_true')
     args = parser.parse_args()
 
     configure_presets = []
