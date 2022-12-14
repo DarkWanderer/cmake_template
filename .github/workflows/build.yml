@@ -44,4 +44,4 @@ jobs:
       run: cmake --build --preset ${{ steps.preset.outputs.name }}
 
     - name: Test
-      run: ctest --preset ${{ steps.preset.outputs.name }} -E use-after-free
+      run: ctest --preset ${{ steps.preset.outputs.name }} -E sanitizers
