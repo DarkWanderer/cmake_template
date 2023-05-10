@@ -1,6 +1,6 @@
-# cmake_crossplatform_example
+# cmake_template
 
-This repository provides an example of how to set up CMakePresets.json to enable remote build/debugging in Visual Studio 2019 or above. A generator allowing to create customized versions is also available
+This repository provides a template for a GitHub-based CMake project which supports building & debugging using Visual Studio on both Windows and Linux
 
 # Quick Start
 
