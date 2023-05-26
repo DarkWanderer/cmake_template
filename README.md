@@ -15,8 +15,6 @@ This repository provides a template for a GitHub-based CMake project which suppo
 
 # Things to try
 
-* Launch sanitizers.exe executable in `x64 ASan` configuration
-* Put a breakpoint in helloworld.cpp
-* Running/debug tests under ASan config
-
-All of above works remotely on Linux
+* Linux: Launch sanitizers.exe executable with different `sanitize` configurations
+* Linux: Put a breakpoint in helloworld.cpp and run it
+* Windows: Run/debug tests with `x64 sanitize=address` config
