@@ -26,6 +26,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
+    - uses: ammaraskar/msvc-problem-matcher@master
+    - uses: ammaraskar/gcc-problem-matcher@master
+
     - name: Set preset name
       id: preset
       shell: bash
