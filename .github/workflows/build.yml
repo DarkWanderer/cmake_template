@@ -40,11 +40,5 @@ jobs:
       with:
         arch: ${{ matrix.arch }}
 
-    - name: Configure CMake
-      run: cmake --preset ${{ steps.preset.outputs.name }}
-
-    - name: Build
-      run: cmake --build --preset ${{ steps.preset.outputs.name }}
-
-    - name: Test
-      run: ctest --timeout 5 --preset ${{ steps.preset.outputs.name }} -E sanitizers
+    - name: Run CMake
+      run: cmake --workflow --preset ${{ steps.preset.outputs.name }}
