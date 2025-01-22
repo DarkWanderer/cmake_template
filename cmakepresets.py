@@ -63,6 +63,7 @@ if __name__ == "__main__":
     configure_presets = []
     build_presets = []
     test_presets = []
+    workflow_presets = []
 
     base_configure_preset = get_base_configure_preset()
     base_build_preset = {
@@ -118,12 +119,31 @@ if __name__ == "__main__":
             "displayName": conf_preset["displayName"],
             "configurePreset": conf_preset["name"],
         })
+        workflow_presets.append({
+            "name": conf_preset["name"],
+            "displayName": conf_preset["displayName"],
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": conf_preset["name"],
+                },
+                {
+                    "type": "build",
+                    "name": conf_preset["name"],
+                },
+                {
+                    "type": "test",
+                    "name": conf_preset["name"],
+                },
+            ]
+        })
 
     root_presets = {
-        "version": 3,
+        "version": 6,
         "configurePresets": configure_presets,
         "buildPresets": build_presets,
-        "testPresets": test_presets
+        "testPresets": test_presets,
+        "workflowPresets": workflow_presets,
     }
 
     with open(args.file, 'w') as f:
